@@ -10,12 +10,12 @@ import java.util.Map;
  */
 public class Executor {
     
-    public static Deque<Map<String, Variable>> scopes;
-    public static Deque<Scope> scopeTypes;
+    public static Deque<Deque<Map<String, Variable>>> frames;
+    public static Deque<Deque<Scope>> scopeTypes;
     public static Scanner input;
     
     public Executor(String inputFilePath) {
-        scopes = new ArrayDeque<>();
+        frames = new ArrayDeque<>();
         scopeTypes = new ArrayDeque<>();
         input = new Scanner(inputFilePath);
     }
@@ -28,21 +28,29 @@ public class Executor {
         procedure.execute();
     }
 
+    public static void pushNewFrame() {
+        frames.addFirst(new ArrayDeque<>());
+    }
+
+    public static void popFrame() {
+        frames.pop();
+    }
+
     /**
      * Pushes a new scope to the top of the scope stack.
      * @param scopeType the type of scope being pushed onto the scope stack (global, local, loop, or if-statement)
      */
     public static void pushNewScope(Scope scopeType) {
-        scopeTypes.addFirst(scopeType);
-        scopes.addFirst(new HashMap<>());
+        scopeTypes.getFirst().addFirst(scopeType);
+        frames.getFirst().addFirst(new HashMap<>());
     }
 
     /**
      * Pops the most recently added scope off the scope stack.
      */
     public static void popScope() {
-        scopeTypes.pop();
-        scopes.pop();
+        scopeTypes.getFirst().pop();
+        frames.getFirst().pop();
     }
 
     /**
@@ -53,7 +61,7 @@ public class Executor {
      * @param type the type of the variable being added to the current scope (integer/object)
      */
     public static void addVariableToCurrentScope(String identifier, Type type) {
-        scopes.getFirst().put(identifier, new Variable(type));
+        frames.getFirst().getFirst().put(identifier, new Variable(type));
     }
 
     /**
@@ -65,7 +73,7 @@ public class Executor {
      */
     public static Variable getVariable(String identifier) {
         Variable variable = null;
-        Iterator<Map<String, Variable>> it = scopes.iterator();
+        Iterator<Map<String, Variable>> it = frames.getFirst().iterator();
         
         while (it.hasNext()) {
             Map<String, Variable> currentScope = it.next();
@@ -96,20 +104,20 @@ public class Executor {
      * @return true if the variable has been declared in the current scope, false otherwise.
      */
     public static boolean isInCurrentScope(String identifier) {
-        return scopes.peekFirst().containsKey(identifier);
+        return frames.getFirst().peekFirst().containsKey(identifier);
     }
 
     /**
      * @return a reference to the global scope
      */
     public static Map<String, Variable> getGlobalScope() {
-        return scopes.peekLast();
+        return frames.getFirst().peekLast();
     }
 
     /**
      * @returns a Scope enum that tells what the current scope type is (global, local, loop, or if-statement)
      */
     public static Scope currentScopeType() {
-        return scopeTypes.peekFirst();
+        return scopeTypes.getFirst().peekFirst();
     }
 }

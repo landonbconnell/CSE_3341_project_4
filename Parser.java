@@ -14,6 +14,7 @@ public class Parser {
     void run() {
         procedure = new Procedure();
         procedure.parse();
+        procedure.printer();
     }
 
     /**

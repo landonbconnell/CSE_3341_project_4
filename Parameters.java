@@ -8,8 +8,17 @@ public class Parameters {
         Parser.scanner.nextToken();
 
         if (Parser.currentTokenIs(Core.COMMA)) {
+            Parser.scanner.nextToken();
             parameters = new Parameters();
             parameters.parse();
+        }
+    }
+
+    void printer() {
+        System.out.print(identifier);
+        if (parameters != null) {
+            System.out.print(", ");
+            parameters.printer();
         }
     }
 }

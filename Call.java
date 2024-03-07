@@ -17,4 +17,10 @@ public class Call {
         Parser.checkCurrentTokenIs(true, Core.RPAREN);
         Parser.checkCurrentTokenIs(false, Core.SEMICOLON);
     }
+
+    void printer() {
+        System.out.print("begin " + identifier + " (");
+        parameters.printer();
+        System.out.println(");");
+    }
 }

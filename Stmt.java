@@ -13,7 +13,7 @@ public class Stmt {
      */
     void parse() {
 
-        Parser.checkCurrentTokenIs(false, Core.ID, Core.IF, Core.WHILE, Core.OUT, Core.INTEGER, Core.OBJECT);
+        Parser.checkCurrentTokenIs(false, Core.ID, Core.IF, Core.WHILE, Core.OUT, Core.INTEGER, Core.OBJECT, Core.BEGIN);
 
         // <assign>
         if (Parser.currentTokenIs(Core.ID)) {
@@ -59,6 +59,8 @@ public class Stmt {
             out.printer();
         } else if (decl != null) {
             decl.printer();
+        } else if (call != null) {
+            call.printer();
         }
     }
 

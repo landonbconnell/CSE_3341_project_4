@@ -32,7 +32,13 @@ public class DeclSeq {
 
     // Prints a sequence of declarations that's syntactically identical to the program input.
     void printer() {
-        decl.printer();
+        
+        if (function != null) {
+            function.printer();
+        } else {
+            decl.printer();
+        }
+        
         if (decl_seq != null) {
             decl_seq.printer();
         }

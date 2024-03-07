@@ -30,4 +30,12 @@ public class Function {
 
         Parser.checkCurrentTokenIs(false, Core.END);
     }
+
+    void printer() {
+        System.out.print("procedure " + procedureName + " (");
+        parameters.printer();
+        System.out.println(") is");
+        stmt_seq.printer();
+        System.out.println("end");
+    }
 }

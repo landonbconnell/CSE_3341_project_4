@@ -16,6 +16,6 @@ class Main {
         parser.run();
 
         // Execute the program
-        executor.run(parser.procedure);
+        // executor.run(parser.procedure);
     }
 }
