@@ -5,6 +5,7 @@ public class Stmt {
     Loop loop;
     Out out;
     Decl decl;
+    Call call;
 
     /**
      * Parses the <stmt> non-terminal in the Core context-free-grammar, which is defined as:
@@ -38,6 +39,11 @@ public class Stmt {
         } else if (Parser.currentTokenIs(Core.INTEGER) || Parser.currentTokenIs(Core.OBJECT)) {
             decl = new Decl();
             decl.parse();
+
+        // <call>
+        } else if (Parser.currentTokenIs(Core.BEGIN)) {
+            call = new Call();
+            call.parse();
         }
     }
 

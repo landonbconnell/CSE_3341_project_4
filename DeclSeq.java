@@ -2,6 +2,7 @@ public class DeclSeq {
     
     Decl decl;
     DeclSeq decl_seq;
+    Function function;
 
     /**
      * Parses the <decl-seq> non-terminal in the Core context-free-grammar, which is defined as:
@@ -9,13 +10,20 @@ public class DeclSeq {
      */
     void parse() {
 
+        // <function>
+        if (Parser.currentTokenIs(Core.PROCEDURE)) {
+            function = new Function();
+            function.parse();
+
         // <decl>
-        decl = new Decl();
-        decl.parse();
+        } else {
+            decl = new Decl();
+            decl.parse();
+        }
 
         Parser.scanner.nextToken();
 
-        // <decl><decl-seq>
+        // <decl><decl-seq> | <function><decl-seq>
         if (!Parser.currentTokenIs(Core.BEGIN)) {
             decl_seq = new DeclSeq();
             decl_seq.parse();
