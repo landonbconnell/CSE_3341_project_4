@@ -29,10 +29,12 @@ public class Executor {
     }
 
     public static void pushNewFrame() {
+        scopeTypes.addFirst(new ArrayDeque<>());
         frames.addFirst(new ArrayDeque<>());
     }
 
     public static void popFrame() {
+        scopeTypes.pop();
         frames.pop();
     }
 

@@ -31,7 +31,7 @@ public class DeclInteger {
             if (Executor.currentScopeType() == Scope.LOOP) {
                 Executor.getVariable(identifier).int_value = 0;
             } else {
-                System.out.println("ERROR: " + identifier + " already declared current in scope.");
+                System.out.println("ERROR: " + identifier + " already declared in current scope.");
                 System.exit(0);
             }
         }

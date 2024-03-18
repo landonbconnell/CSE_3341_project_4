@@ -24,9 +24,13 @@ public class DeclSeq {
         Parser.scanner.nextToken();
 
         // <decl><decl-seq> | <function><decl-seq>
-        if (!Parser.currentTokenIs(Core.BEGIN)) {
-            decl_seq = new DeclSeq();
-            decl_seq.parse();
+        if (!Parser.currentTokenIs(Core.BEGIN) && !Parser.currentTokenIs(Core.PROCEDURE)) {
+            if (Parser.currentTokenIs(Core.PROCEDURE)) {
+
+            } else {
+                decl_seq = new DeclSeq();
+                decl_seq.parse();
+            }
         }
     }
 
