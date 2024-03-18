@@ -6,7 +6,7 @@ public class DeclSeq {
 
     /**
      * Parses the <decl-seq> non-terminal in the Core context-free-grammar, which is defined as:
-     *      <decl-seq> ::= <decl > | <decl><decl-seq> 
+     *      <decl-seq> ::= <decl> | <decl><decl-seq> 
      */
     void parse() {
 
@@ -24,13 +24,9 @@ public class DeclSeq {
         Parser.scanner.nextToken();
 
         // <decl><decl-seq> | <function><decl-seq>
-        if (!Parser.currentTokenIs(Core.BEGIN) && !Parser.currentTokenIs(Core.PROCEDURE)) {
-            if (Parser.currentTokenIs(Core.PROCEDURE)) {
-
-            } else {
-                decl_seq = new DeclSeq();
-                decl_seq.parse();
-            }
+        if (!Parser.currentTokenIs(Core.BEGIN)) {
+            decl_seq = new DeclSeq();
+            decl_seq.parse();
         }
     }
 
@@ -50,7 +46,9 @@ public class DeclSeq {
 
     // Executes a sequence of declaration statements
     void execute() {
-        decl.execute();
+        if (decl != null) {
+            decl.execute();
+        }
         if (decl_seq != null) {
             decl_seq.execute();
         }
