@@ -5,6 +5,10 @@ public class Parameters {
     String identifier;
     Parameters parameters;
 
+    /**
+     * Parses the <parameters> non-terminal in the Core context-free-grammar, which is defined as:
+     *      <parameters> ::= ID | ID, <parameters>
+     */
     void parse() {
         Parser.checkCurrentTokenIs(false, Core.ID);
         identifier = Parser.scanner.getId();
@@ -17,6 +21,7 @@ public class Parameters {
         }
     }
 
+    // Prints a list of parameters that is syntactically identical to the input.
     void printer() {
         System.out.print(identifier);
         if (parameters != null) {
@@ -25,6 +30,7 @@ public class Parameters {
         }
     }
 
+    // Returns a list of parameter identifiers.
     List<String> execute() {
         List<String> paramList = new ArrayList<>();
         paramList.add(identifier);

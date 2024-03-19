@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Parses the <call> non-terminal in the Core context-free-grammar, which is defined as:
+ *      <call> ::= begin ID (<parameters>);
+ */
 public class Call {
     String identifier;
     Parameters parameters;
@@ -24,13 +28,20 @@ public class Call {
         Parser.checkCurrentTokenIs(false, Core.SEMICOLON);
     }
 
+    // Prints a function call that's syntactically identical to the program input.
     void printer() {
         System.out.print("begin " + identifier + " (");
         parameters.printer();
         System.out.println(");");
     }
 
+    // Executes the function call.
     void execute() {
+        if (!Executor.functions.containsKey(identifier)) {
+            System.out.println("ERROR: the function '" + identifier + "' has not been declared.");
+            System.exit(0);
+        }
+
         Function function = Executor.functions.get(identifier);
 
         List<String> informals = parameters.execute();

@@ -46,12 +46,21 @@ public class DeclSeq {
 
     // Executes a sequence of declaration statements
     void execute() {
+        // <decl>
         if (decl != null) {
             decl.execute();
+
+        // <function>
         } else {
-            Executor.functions.put(function.procedureName, function);
+            if (!Executor.functions.containsKey(function.procedureName))  {
+                Executor.functions.put(function.procedureName, function);
+            } else {
+                System.out.println("ERROR: the function '" + function.procedureName + "' has already been declared.");
+                System.exit(0);
+            }
         }
         
+        // <decl><decl-seq> | <function><decl-seq>
         if (decl_seq != null) {
             decl_seq.execute();
         }

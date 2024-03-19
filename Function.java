@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Function {
 
     String procedureName;
@@ -5,8 +7,8 @@ public class Function {
     Parameters parameters;
 
     /**
-     * Parses the <procedure> non-terminal in the Core context-free-grammar, which is defined as:
-     *      <procedure> ::= procedure ID is <decl-seq> begin <stmt-seq> end | procedure ID is begin <stmt-seq> end
+     * Parses the <function> non-terminal in the Core context-free-grammar, which is defined as:
+     *      <function> ::= procedure ID (<parameters>) is <stmt-seq> end
      */
     void parse() {
 
@@ -21,8 +23,17 @@ public class Function {
         parameters = new Parameters();
         parameters.parse();
 
-        Parser.checkCurrentTokenIs(true, Core.RPAREN);
+        List<String> paramIdentifiers = parameters.execute();
+        for (int i = 0; i < paramIdentifiers.size(); i++) {
+            for (int j = i + 1; j < paramIdentifiers.size(); j++) {
+                if (paramIdentifiers.get(i).equals(paramIdentifiers.get(j))) {
+                    System.out.println("ERROR: duplicate formal parameters defined for the function '" + procedureName + "'.");
+                    System.exit(0);
+                }
+            }
+        }
 
+        Parser.checkCurrentTokenIs(true, Core.RPAREN);
         Parser.checkCurrentTokenIs(true, Core.IS);
 
         stmt_seq = new StmtSeq();
@@ -31,6 +42,7 @@ public class Function {
         Parser.checkCurrentTokenIs(false, Core.END);
     }
 
+    // Prints a function definition that is syntactically identical to the input.
     void printer() {
         System.out.print("procedure " + procedureName + " (");
         parameters.printer();
@@ -39,6 +51,7 @@ public class Function {
         System.out.println("end");
     }
 
+    // Executes the sequence of statements inside the function body.
     void execute() {
         stmt_seq.execute();
     }

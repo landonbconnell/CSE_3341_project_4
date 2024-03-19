@@ -10,16 +10,16 @@ import java.util.Map;
  */
 public class Executor {
     
+    public static Scanner input;
     public static Map<String, Function> functions;
     public static Deque<Deque<Map<String, Variable>>> frames;
     public static Deque<Deque<Scope>> scopeTypes;
-    public static Scanner input;
     
     public Executor(String inputFilePath) {
+        input = new Scanner(inputFilePath);
         functions = new HashMap<>();
         frames = new ArrayDeque<>();
         scopeTypes = new ArrayDeque<>();
-        input = new Scanner(inputFilePath);
     }
 
     /**
