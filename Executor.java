@@ -10,11 +10,13 @@ import java.util.Map;
  */
 public class Executor {
     
+    public static Map<String, Function> functions;
     public static Deque<Deque<Map<String, Variable>>> frames;
     public static Deque<Deque<Scope>> scopeTypes;
     public static Scanner input;
     
     public Executor(String inputFilePath) {
+        functions = new HashMap<>();
         frames = new ArrayDeque<>();
         scopeTypes = new ArrayDeque<>();
         input = new Scanner(inputFilePath);
@@ -28,9 +30,9 @@ public class Executor {
         procedure.execute();
     }
 
-    public static void pushNewFrame() {
+    public static void pushFrame(Deque<Map<String, Variable>> frame) {
         scopeTypes.addFirst(new ArrayDeque<>());
-        frames.addFirst(new ArrayDeque<>());
+        frames.addFirst(frame);
     }
 
     public static void popFrame() {
@@ -42,7 +44,7 @@ public class Executor {
      * Pushes a new scope to the top of the scope stack.
      * @param scopeType the type of scope being pushed onto the scope stack (global, local, loop, or if-statement)
      */
-    public static void pushNewScope(Scope scopeType) {
+    public static void pushScope(Scope scopeType) {
         scopeTypes.getFirst().addFirst(scopeType);
         frames.getFirst().addFirst(new HashMap<>());
     }

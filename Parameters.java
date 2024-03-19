@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Parameters {
     String identifier;
     Parameters parameters;
@@ -20,5 +23,16 @@ public class Parameters {
             System.out.print(", ");
             parameters.printer();
         }
+    }
+
+    List<String> execute() {
+        List<String> paramList = new ArrayList<>();
+        paramList.add(identifier);
+
+        if (parameters != null) {
+            paramList.addAll(parameters.execute());
+        }
+
+        return paramList;
     }
 }

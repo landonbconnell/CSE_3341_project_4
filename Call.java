@@ -1,3 +1,9 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Call {
     String identifier;
     Parameters parameters;
@@ -22,5 +28,26 @@ public class Call {
         System.out.print("begin " + identifier + " (");
         parameters.printer();
         System.out.println(");");
+    }
+
+    void execute() {
+        Function function = Executor.functions.get(identifier);
+
+        List<String> informals = parameters.execute();
+        List<String> formals = function.parameters.execute();
+
+        Deque<Map<String, Variable>> frame = new ArrayDeque<>();
+        frame.add(new HashMap<>());
+
+        for (int i = 0; i < informals.size(); i++) {
+            frame.getFirst().put(formals.get(i), Executor.getVariable(informals.get(i)));
+        }
+
+        Executor.pushFrame(frame);
+        Executor.pushScope(Scope.LOCAL);
+
+        function.execute();
+
+        Executor.popFrame();
     }
 }

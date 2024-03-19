@@ -38,4 +38,8 @@ public class Function {
         stmt_seq.printer();
         System.out.println("end");
     }
+
+    void execute() {
+        stmt_seq.execute();
+    }
 }

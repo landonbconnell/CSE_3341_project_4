@@ -1,3 +1,5 @@
+import java.util.ArrayDeque;
+
 public class Procedure {
     String procedureName;
     DeclSeq decl_seq;
@@ -45,17 +47,17 @@ public class Procedure {
     }
 
     void execute() {
-        Executor.pushNewFrame();
+        Executor.pushFrame(new ArrayDeque<>());
 
         // Pushing global scope
-        Executor.pushNewScope(Scope.GLOBAL);
+        Executor.pushScope(Scope.GLOBAL);
 
         if (decl_seq != null) {
             decl_seq.execute();
         }
         
         // Pushing main-body scope
-        Executor.pushNewScope(Scope.LOCAL);
+        Executor.pushScope(Scope.LOCAL);
         
         stmt_seq.execute();
 

@@ -69,17 +69,19 @@ public class Stmt {
         if (assign != null) {
             assign.execute();
         } else if (if_stmt != null) {
-            Executor.pushNewScope(Scope.IF); // Pushing if-statement scope
+            Executor.pushScope(Scope.IF); // Pushing if-statement scope
             if_stmt.execute();
             Executor.popScope(); // Popping if-statement scope
         } else if (loop != null) {
-            Executor.pushNewScope(Scope.LOOP); // Pushing while-loop scope
+            Executor.pushScope(Scope.LOOP); // Pushing while-loop scope
             loop.execute();
             Executor.popScope(); // Popping while-loop scope
         } else if (out != null) {
             out.execute();
         } else if (decl != null) {
             decl.execute();
+        } else if (call != null) {
+            call.execute();
         }
     }
 }

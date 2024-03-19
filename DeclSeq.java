@@ -48,7 +48,10 @@ public class DeclSeq {
     void execute() {
         if (decl != null) {
             decl.execute();
+        } else {
+            Executor.functions.put(function.procedureName, function);
         }
+        
         if (decl_seq != null) {
             decl_seq.execute();
         }
