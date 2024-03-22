@@ -6,7 +6,7 @@ echo "Attempting to compile java code..."
 javac *.java
 runner="java Main"
 
-for value in {1..9}
+for value in {1..10}
 do
 	echo ""
 	echo "Running ${value}.code"
@@ -75,7 +75,7 @@ echo ""
 
 
 
-echo "Correct cases score out of 9:"
+echo "Correct cases score out of 10:"
 echo $score
 echo "Error cases score out of 4:"
 echo $error

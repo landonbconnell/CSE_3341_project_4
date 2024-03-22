@@ -51,7 +51,7 @@ public class Call {
         frame.add(new HashMap<>());
 
         for (int i = 0; i < informals.size(); i++) {
-            frame.getFirst().put(formals.get(i), Executor.getVariable(informals.get(i)));
+            frame.getFirst().put(formals.get(i), Executor.getVariable(informals.get(i)).getCopy());
         }
 
         Executor.pushFrame(frame);

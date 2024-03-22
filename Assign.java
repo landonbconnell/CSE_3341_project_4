@@ -117,7 +117,7 @@ public class Assign {
                 }
 
                 variable1.obj_value = new int[expr1.execute()];
-
+                
             // id = <expr>;
             } else {
                 if (variable1.type == Type.INTEGER) {
