@@ -1,0 +1,12 @@
+procedure c2 is
+	procedure A ( r ) is
+		r = new object (1);
+		r[0] = 7;
+	end
+begin
+	object x;
+	x = new object(1);
+	x = 1;
+	begin A(x);
+	out(x[0]);
+end

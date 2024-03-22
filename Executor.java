@@ -30,11 +30,18 @@ public class Executor {
         procedure.execute();
     }
 
+    /**
+     * Pushes a new frame to the top of the frames stack.
+     * @param frame the frame being pushed to the top of the frames stack.
+     */
     public static void pushFrame(Deque<Map<String, Variable>> frame) {
         scopeTypes.addFirst(new ArrayDeque<>());
         frames.addFirst(frame);
     }
 
+    /**
+     * Pops a frame off the top of the frames stack.
+     */
     public static void popFrame() {
         scopeTypes.pop();
         frames.pop();

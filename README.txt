@@ -32,6 +32,8 @@ Variable.java - A class defining a "Variable" object which contains 'type' and '
 
 Special Features:
 
+This project was very straightforward, so I don't think my approach involved implementing any special features.
+
 Interpreter Design:
 
 To add function-calling capabilities to my interpreter, I introduced additional classes to represent the new non-terminals in
@@ -50,4 +52,5 @@ Thus, to implement function calling, my approach involved this simple process:
 
 Interpreter Testing and Bugs:
 
-
+To test my interpreter, I only used the test cases that came with the project files. Since all the test cases pass, to my knowledge
+there aren't any remaining bugs.
